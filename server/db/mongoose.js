@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+var config = require('./config.json')
 
 mongoose.Promise = global.Promise
 
@@ -18,13 +19,13 @@ var env = process.env.NODE_ENV || 'development';
 console.log('env ****', env);
 
 if(process.env.PORT){
-    mongoose.connect('mongodb://cristi:test@ds227740.mlab.com:27740/heroku-test')
+    mongoose.connect(config.heroku.connect)
 } else {
   process.env.PORT = 3000;
   if(env === 'development'){
-    mongoose.connect('mongodb://localhost:27017/TodoApp')
+    mongoose.connect(config.development.connect)
   } else if (env === 'test'){
-    mongoose.connect('mongodb://localhost:27017/TodoAppTest')
+    mongoose.connect(config.test.connect)
   }
 }
 
